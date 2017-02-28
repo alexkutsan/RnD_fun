@@ -47,6 +47,16 @@ public:
         }
     }
 
+    template <class Func>
+    void defer(Func f) {
+        sheldue(f);
+    }
+
+    template <class Func>
+    void synca(Func f) {
+        yeld(f);
+    }
+
     void ExitLoop();
 
     void Loop();

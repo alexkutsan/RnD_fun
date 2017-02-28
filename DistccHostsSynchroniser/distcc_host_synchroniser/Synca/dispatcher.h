@@ -4,9 +4,18 @@
 #include <queue>
 #include <iostream>
 #include <memory>
+#include <thread>
 #include <condition_variable>
 
 namespace co = boost::coroutines;
+
+template <typename F, typename C>
+void async(F func, C callback) {
+    std::thread([func, cb(std::move(callback))]() mutable {
+        func();
+        cb();
+    }).detach();
+}
 
 class Dispatcher
 {
@@ -14,7 +23,6 @@ public:
     Dispatcher():
         current_task_(std::make_unique<Task>(*this)),
         shutdown_(false) {
-
     }
 
     template <class F>
@@ -45,6 +53,16 @@ public:
         if (sink) {
             sink();
         }
+    }
+
+    template<class Func>
+    void synca(Func&& f) {
+        yeld(f);
+    }
+
+    template<class Func>
+    void defer(Func&& f) {
+        shedule(std::forward<Func>(f));
     }
 
     void ExitLoop();
