@@ -2,9 +2,10 @@
 
 ## Description 
 
-This calendar made for events dairy
-You should print is on big sheet of paper (A0 or 100x120).
-During year you can put on white space some qutes, memories, photos ... 
+This calendar made for events dairy.
+
+You should print is on big sheet of paper (A0 or 100cmx120cm, the bigger, the better).
+During year you can put on white space some quotes, memories, photos ... 
 In the end of the year you will have wonderful flashback for that year. 
 
 ## Dependencies
@@ -13,7 +14,9 @@ python-cairo
 ## Generation
 
 Run : 
-```$ ptyhon ./main.py```
+```
+$ python ./main.py
+```
 
 File calendar.png will be generated in current dirrectory.
 
