@@ -1,0 +1,3 @@
+[submodule "flatbuffers_tests/flatbuffers"]
+	path = flatbuffers_tests/flatbuffers
+	url = https://github.com/google/flatbuffers
