@@ -3,7 +3,7 @@ import math
 import cairo
 import datetime
 
-YEAR = 2017
+YEAR = 2018
 WIDTH, HEIGHT = 10000, 10000
 RADIUS = 0.40
 FONT_SIZE = 0.0060
@@ -62,7 +62,7 @@ for x in range (1, 366):
   else:
     text(ctx, day_to_text(day), get_point(x, RADIUS), x)
 
-text(ctx, "2017", (0.37, 0.3), 0,  font_size = 0.1, font_color = HOLIDAY_COLOR)
+text(ctx, str(YEAR), (0.37, 0.3), 0,  font_size = 0.1, font_color = HOLIDAY_COLOR)
 text(ctx, "Povered by https://github.com/alexkutsan", (0.86, 0.99), 0, font_color = (0.5,0.5,0.5), font_size = 0.006)
 
 surface.write_to_png ("calendar.png") # Output to PNG
