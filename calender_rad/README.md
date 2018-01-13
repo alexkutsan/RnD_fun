@@ -7,7 +7,7 @@ This calendar made for events dairy.
 You should print is on big sheet of paper (A0 or 100cmx120cm, the bigger, the better).
 During year you can put on white space some quotes, memories, photos ... 
 In the end of the year you will have wonderful flashback for that year. 
-[Example](./calendar.png)
+![Example](./calendar.png)
 ## Dependencies
 python-cairo
 
