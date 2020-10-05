@@ -1,5 +1,6 @@
 #include "dispatcher.h"
 
+namespace synca {
 
 void Dispatcher::ExitLoop() {
     shutdown_ = true;
@@ -35,5 +36,6 @@ void Dispatcher::Loop()  {
 
     }
     std::cout << "Processed all tasks" << std::endl;
+}
 }
 

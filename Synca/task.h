@@ -3,9 +3,9 @@
 
 #include <boost/coroutine/all.hpp>
 #include <functional>
+namespace synca {
 
 namespace co = boost::coroutines;
-
 
 class Dispatcher;
 
@@ -13,7 +13,7 @@ class Task {
 public:
     Task(Dispatcher& dsprchr);
 
-    Task(std::function<void()> func, Dispatcher& dsprchr);
+    Task(std::function<void()>&& func, Dispatcher& dsprchr);
 
     void cooperative(co::coroutine<void>::push_type& sink);
 
@@ -24,7 +24,7 @@ public:
     co::coroutine<void>::push_type* sink_;
 };
 typedef std::unique_ptr<Task> TaskPtr;
-
+}
 
 
 

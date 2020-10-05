@@ -1,0 +1,66 @@
+namespace Protocol;
+
+union FunctionData {
+    AddNodeRequest,
+    AddNodeResponse,
+    RemoveNodeRequest,
+    RemoveNodeResponse,
+    IsUpdatedRequest,
+    IsUpdatedResponse,
+    OutOfDateNotification}
+
+enum FunctionId:short {AddNodeId, RemoveNodeId, OutOfDateId, IsUpdatedId }
+enum RPCType:short {Request, Response, Notification}
+
+table RPC {
+        func_id: FunctionId ;
+        corr_id: long;
+        rpc_type : RPCType;
+        data : FunctionData;
+}
+
+enum ResponseCode:short {
+    Success,
+    Ignore,
+    Error
+}
+
+table AddNodeRequest {
+    node : Node;
+}
+
+table AddNodeResponse {
+    code:ResponseCode;
+    info:string;
+}
+
+table RemoveNodeRequest{
+    ip:string;
+}
+
+table RemoveNodeResponse{
+    code:ResponseCode;
+    info:string;
+}
+
+enum IsUpdatedStatus:short{Updated, NotUpdated}
+
+table IsUpdatedRequest{}
+
+table IsUpdatedResponse {
+    code:ResponseCode;
+    info:string;
+    status:IsUpdatedStatus;
+}
+
+table OutOfDateNotification{}
+
+table Node {
+    name:string;
+    ip:string;
+    os_info:string;
+    env:string;
+}
+
+
+root_type RPC;

@@ -1,25 +1,33 @@
-#ifndef DISPATCHER_H
-#define DISPATCHER_H
-#include  "task.h"
+#pragma once
+
+#include "task.h"
 #include <queue>
 #include <iostream>
 #include <memory>
+#include <thread>
 #include <condition_variable>
+namespace synca {
 
 namespace co = boost::coroutines;
 
-class Dispatcher
-{
+template <typename F, typename C>
+void async(F func, C callback) {
+    std::thread([func, cb(std::move(callback))]() mutable {
+        func();
+        cb();
+    }).detach();
+}
+
+class Dispatcher {
 public:
     Dispatcher():
         current_task_(std::make_unique<Task>(*this)),
         shutdown_(false) {
-
     }
 
     template <class F>
-    void shedule(F func) {
-        TaskPtr t = std::make_unique<Task>(func, *this);
+    void shedule(F&& func) {
+        TaskPtr t = std::make_unique<Task>(std::forward<F>(func), *this);
         sheldue(t);
     }
 
@@ -47,14 +55,14 @@ public:
         }
     }
 
-    template <class Func>
-    void defer(Func f) {
-        sheldue(f);
+    template<class Func>
+    void synca(Func&& f) {
+        yeld(f);
     }
 
-    template <class Func>
-    void synca(Func f) {
-        yeld(f);
+    template<class Func>
+    void defer(Func&& f) {
+        shedule(std::forward<Func>(f));
     }
 
     void ExitLoop();
@@ -70,6 +78,4 @@ private:
     void WaitShelueOrShutdown();
 };
 
-
-
-#endif // DISPATCHER_H
+}
